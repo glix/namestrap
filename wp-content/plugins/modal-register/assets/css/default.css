@@ -1,0 +1,30 @@
+*:focus, *:active {outline: 0; -moz-outline: 0px !important; -moz-outline-offset: 0px !important; }
+input:focus {-moz-outline-offset: -1px     !important; }
+
+#register-modal-outer {display: none; position: fixed; width: 100%; height: 100%;}
+
+#register-modal-box { margin-top: -150px; margin-left: -150px; position: fixed; width: 300px; height: 300px; top: 50%; left: 50%}
+
+#register-modal-form {
+	background: #FFFFFF; font-weight:normal; text-align:left; -moz-border-radius:11px 11px 11px 11px; -moz-box-shadow:0 4px 18px #C8C8C8; -webkit-border-radius:11px 11px 11px 11px; -webkit-box-shadow:0 4px 18px #C8C8C8;    
+	border-radius:11px 11px 11px 11px;
+	padding: 5px 16px 5px ;
+}
+	#register-modal-form p {margin: 0 0 12px 0;}
+	#register-modal-form label { display: block; font-size: 13px;color: #777;}
+	#register-modal-form input {font-size: 16px; width: 97%;margin-top: 2px;margin-right: 6px;padding: 5px; }
+
+div.register-buttons {margin-bottom: 5px; text-align: right;  }
+	
+	#modal-register-captcha {background-repeat: no-repeat; margin: 2px 0 0 0; float: left; width: 100px;}
+	#register-modal-form #modal-register-submit, #register-modal-form #modal-register-close { 
+		background-color:#F6F6F6; border:1px solid; color:#B5B5B5; cursor:pointer;  font-size:12px; font-weight:bold; 
+		margin: 0; padding: 3px 5px;
+    	-webkit-border-radius: 11px;
+    	-moz-border-radius: 11px; 
+    	width: auto;
+    }
+
+.modal-register-error {display: none; background: #eaeaea; color: gray; padding: 5px; margin: 0 0 5px 0; text-align: center; font-weight: bold; -moz-border-radius:3px; 	border-radius: 3px; -webkit-border-radius: 3px}
+.modal-register-loading {display: none; height: 10px; border:1px solid red; background: url("../assets/images/loader.gif") no-repeat; margin: 5px; }
+ 
