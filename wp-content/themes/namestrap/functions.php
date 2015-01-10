@@ -1,4 +1,5 @@
 <?php 
+    ob_start();
 	function namestrap_setup(){
 		register_nav_menus(
 		    array('primary'=>_('Primary Menu'))
@@ -48,6 +49,7 @@
             }
             $args = array(
                 'post_type' => 'domain',
+                'post_status'   => 'publish',
                 'paged' => $paged,
                 'posts_per_page' => PAGINATION_LIMIT,
             );
@@ -92,7 +94,7 @@
                                'key' => 'price',
                                'value' => $_POST['minRange'],
                                'compare' => '>=',
-                            ),
+                            )
                         ),
                         array(
                            'key' => 'price',
@@ -197,6 +199,42 @@
 
     add_action( 'wp_ajax_filter_domains', 'filter_domains' );
     add_action( 'wp_ajax_nopriv_filter_domains', 'filter_domains' );
+    
+    /** Notification Upon post Pubished to post posted **/
+    function authorNotification( $new_status, $old_status, $post ) {
+        $post_type=get_post_type( $post );
+        if ( $new_status == 'publish' && $old_status != 'publish' && $post_type == 'domain' ) {
+        $admin_email = get_option( 'admin_email' );
+        $author = get_userdata($post->post_author);
+        $site_name = get_bloginfo( 'name' );
+        $message = "
+        Hi ".$author->display_name.",
+        Your Domain ".$post->post_title." has been published at ".get_permalink($post->ID ).". ";
+        $header  = 'MIME-Version: 1.0' . "\r\n";
+        $header .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $header .= "From: $site_name  "."<". $admin_email .">\r\n"; 
+        $header .= "Reply-To: ". $admin_email ."\r\n";
+        wp_mail($author->user_email, "Domain Approval Email", $message, $header);
+        }
+    }
+    add_action('transition_post_status', 'authorNotification', 10, 3 );
 
-
-?>
+    /** Notification Upon post Decline to post posted **/
+    function authorNotificationDecline( $new_status, $old_status, $post ) {
+        $post_type=get_post_type( $post );
+        if ( $new_status == 'trash' && $old_status != 'trash' && $post_type == 'domain' ) {
+        $admin_email = get_option( 'admin_email' );
+        $site_name = get_bloginfo( 'name' );    
+        $author = get_userdata($post->post_author);
+        $message = "
+        Hi ".$author->display_name.",
+        <br/>
+        Your Domain ".$post->post_title." has been declined for listing at Namestrap.";
+        $header  = 'MIME-Version: 1.0' . "\r\n";
+        $header .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $header .= "From: $site_name  "."<". $admin_email .">\r\n"; 
+        $header .= "Reply-To: ". $admin_email ."\r\n";
+        wp_mail($author->user_email, "Domain Declined Email", $message, $header);
+        }
+    }
+    add_action('transition_post_status', 'authorNotificationDecline', 10, 3 );

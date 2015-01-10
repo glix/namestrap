@@ -12,7 +12,7 @@ Class ajax_login_register_Login Extends AjaxLogin {
      */
     public function __construct(){
         add_action( 'init', array( &$this, 'init' ) );
-        add_action( 'wp_footer', array( &$this, 'footer' ) );
+        add_action( 'wp_head', array( &$this, 'footer' ) );
         parent::__construct();
     }
 
@@ -59,7 +59,6 @@ Class ajax_login_register_Login Extends AjaxLogin {
      * @return userlogin on success; 0 on false;
      */
     public function login_submit( $user_login=null, $password=null, $is_ajax=true ) {
-
         /**
          * Verify the AJAX request
          */
@@ -71,21 +70,31 @@ Class ajax_login_register_Login Extends AjaxLogin {
 
         // Currently wp_signon returns the same error code 'invalid_username' if
         // a username does not exists or is invalid
-        if ( validate_username( $username ) ){
-            if ( username_exists( $username ) ){
-                $creds = array(
-                    'user_login'    => $username,
-                    'user_password' => $password,
-                    'remember'      => $remember
-                    );
-                $user = wp_signon( $creds, false );
-                $status = is_wp_error( $user ) ? $this->status( $user->get_error_code() ) : $this->status('success_login');
-            } else {
-                $status = $this->status('username_does_not_exists');
+
+        $user = get_userdatabylogin($username);
+        $usr_status=get_user_meta($user->ID,'usr_status',true);
+         if ( $usr_status == 'approved' ){
+            if ( validate_username( $username ) ){
+                if ( username_exists( $username ) ){
+                    $creds = array(
+                        'user_login'    => $username,
+                        'user_password' => $password,
+                        'remember'      => $remember
+                        );
+                    $user = wp_signon( $creds, false );
+                    $status = is_wp_error( $user ) ? $this->status( $user->get_error_code() ) : $this->status('success_login');
+                } else {
+                    $status = $this->status('username_does_not_exists');
+                }
             }
-        } else {
-            $status = $this->status('invalid_username');
+             else {
+                $status = $this->status('invalid_username');
+            }
         }
+
+            else {
+                $status = $this->status('email_confirmation');
+            }
 
         if ( $is_ajax ) {
             wp_send_json( $status );

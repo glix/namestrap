@@ -19,7 +19,6 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo get_bloginfo('template_directory'); ?>/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo get_bloginfo('template_directory'); ?>/css/colorbox/colorbox.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo get_bloginfo('template_directory'); ?>/css/bootstrap-theme.min.css" />
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -28,12 +27,9 @@
 	<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
 
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.colorbox.js"></script>
-	<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/handlecolorbox.js"></script>
 	<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/bootstrap.js"></script>
 	<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/bootstrap-slider.js"></script>
 	<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/select2.min.js"></script>
-
 
 		<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
@@ -53,12 +49,6 @@
 					<div class="logo">
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 							<img src="<?php bloginfo('template_directory'); ?>/img/logo.png" alt="Namestarp">
-                        
-                             
-							<a href="#" class="test-colorbox"></a>
-							<div class="login-form12">
-							
-							</div>
 						</a>
 					</div>
 				</div>

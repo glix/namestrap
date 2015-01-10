@@ -23,8 +23,8 @@ Class ajax_login_register_Register Extends AjaxLogin {
     public function init(){
         add_action( 'wp_ajax_nopriv_register_submit', array( &$this,'register_submit' ) );
         add_action( 'wp_ajax_register_submit', array( &$this,'register_submit' ) );
-
         add_shortcode( 'ajax_register', array( &$this, 'register_shortcode' ) );
+
     }
 
 
@@ -77,6 +77,34 @@ Class ajax_login_register_Register Extends AjaxLogin {
 
             $user_id = wp_create_user( $user['login'], $user['password'], $user['email'] );
 
+            //Custom added Code For Mail Confirmation
+            $hash = wp_rand();
+            $admin_email = get_option( 'admin_email' );
+            $site_name = get_bloginfo( 'name' );
+            add_user_meta( $user_id, 'hash', $hash );
+            update_user_meta($user_id,'usr_status','pending');
+            $user_info = get_userdata($user_id);
+            $to = $user_info->user_email;           
+            $subject = 'User Verification'; 
+            $message = 'Hello '.$user['login'];
+            $message .= "\r\n";
+            $message .= 'Here is your Username & Password:';
+            $message .= "\r\n";
+            $message .= 'Username: '.$user['login'];
+            $message .= "\r\n";
+            $message .= 'Password: '.$user['password'];
+            $message .= "\r\n";
+            $message .= 'Please click on the link below to activate your account:';
+            $message .= "\r\n";
+            $message .= home_url('/').'activate/?id='.$user['login'].'&key='.$hash;
+            $header  = 'MIME-Version: 1.0' . "\r\n";
+            $header .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+            $header .= "From: $site_name  "."<". $admin_email .">\r\n"; 
+            $header .= "Reply-To: ". $admin_email ."\r\n";           
+            wp_mail($to, $subject, $message, $header); 
+
+            //End Custom added Code For Mail Confirmation
+
             do_action( 'zm_ajax_login_after_successfull_registration', $user_id );
 
             if ( ! is_wp_error( $user_id ) ) {
@@ -89,8 +117,10 @@ Class ajax_login_register_Register Extends AjaxLogin {
                 }
 
                 wp_update_user( array( 'ID' => $user_id, 'role' => 'subscriber' ) );
-                $wp_signon = wp_signon( array( 'user_login' => $user['login'], 'user_password' => $user['password'], 'remember' => true ), false );
+                //$wp_signon = wp_signon( array( 'user_login' => $user['login'], 'user_password' => $user['password'], 'remember' => true ), false );
                 $msg = $this->status('success_registration'); // success
+                echo json_encode(array('message' => 'thank you for registeration','url' => home_url('thank-you/?user_email='.$user['email'])));
+                exit;
             } else {
                 $msg = $this->status('invalid_username'); // invalid user
             }

@@ -35,7 +35,12 @@
 	<script type="text/javascript">
 		$(function(){
 			$('.ajax_load_wrapper').css('height',($(document).height()-178));
-		})
+		});
+	</script>
+	<script type="text/javascript">
+		$(function(){
+			$("#bs-example-navbar-collapse-1 #menu-item-856 a").addClass("fancybox fancybox.iframe");
+		});
 	</script>
 	<?php wp_footer(); ?>
 </body>

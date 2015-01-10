@@ -59,7 +59,7 @@ body {
     }
 
 .ajax-login-default-form-container input[type="submit"]:hover {
-    color: #008000;
+    color: #fff;
     }
 
 .ajax-login-default-form-container input[type="submit"]:active {
@@ -74,7 +74,7 @@ body {
 
 .ajax-login-default-form-container input[type="submit"]:disabled {
     cursor: pointer;
-    opacity: 0.5;
+    /*opacity: 0.5;*/
     }
 
 .ajax-login-default-form-container input[type="submit"] {
@@ -82,11 +82,11 @@ body {
     -webkit-transition-duration: 0.3s;
     -webkit-transition-timing-function: linear;
     font-weight: bold;
-    background: #E0E0E0;
+    background: #20B6F4;
     box-shadow: none;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
     border: 0;
     cursor: pointer;
     font-weight: bold;
@@ -94,9 +94,9 @@ body {
     font-size: 12px;
     padding: 7px 20px;
     text-transform: uppercase;
-    text-shadow: 0 1px 0 #FFF;
+/*    text-shadow: 0 1px 0 #FFF;*/
     cursor: pointer;
-    color: #008000;
+    color: #fff;
     border: 1px solid #CFCFCF;
     }
 
@@ -198,6 +198,22 @@ body {
 .ui-dialog .form-wrapper {
     margin: 0;
     }
+
+/*modified css 7/11/2014*/
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front{
+    display: block;
+    height: auto;
+    left: 539px;
+    position: fixed !important;
+    top: 160px !important;
+    width: auto;
+}
+
+.cycle-slideshow .cycle-slide{
+    z-index: 0 !important;
+}
+
+/* End modified css*/
 
 
 /*= Media Queries

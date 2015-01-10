@@ -23,7 +23,7 @@ jQuery( document ).ready(function( $ ){
                 data: data,
                 type: "POST",
                 url: _ajax_login_settings.ajaxurl,
-                success: function( msg ){
+                success: function( msg){
                     $( "#ajax-login-register-target" ).fadeIn().html( msg ); // Give a smooth fade in effect
                 }
             });
@@ -60,7 +60,7 @@ jQuery( document ).ready(function( $ ){
      */
     $( document ).on('submit', '.register_form', function( event ){
         event.preventDefault();
-
+        //alert('hello');
         passwords_match = zMAjaxLoginRegister.confirm_password('.user_confirm_password');
 
         if ( passwords_match.code == 'error' ){
@@ -72,7 +72,11 @@ jQuery( document ).ready(function( $ ){
                 type: "POST",
                 url: _ajax_login_settings.ajaxurl,
                 success: function( msg ) {
-                    ajax_login_register_show_message( $(this), msg );
+                   if(typeof msg.url != 'undefined'){
+                        window.location = msg.url;
+                    }
+                    //ajax_login_register_show_message( $(this), msg.message );
+                    ajax_login_register_show_message( $(this),message );
                 }
             });
         }

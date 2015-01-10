@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+/*$('.menu li#menu-item-882').addClass('test-colorbox');*/
 	$(".test-colorbox").colorbox({
 	     inline:true, 
 	     href:".login-form12",

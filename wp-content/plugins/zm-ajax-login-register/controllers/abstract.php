@@ -264,7 +264,7 @@ abstract Class AjaxLogin {
                 ),
 
             'success_login' => array(
-                'description' => __( 'Success! One moment while we log you in...', 'ajax_login_register' ),
+                'description' => __( 'Please wait while we log you in...', 'ajax_login_register' ),
                 'cssClass' => 'success-container',
                 'code' => 'success_login'
                 ),
@@ -272,7 +272,12 @@ abstract Class AjaxLogin {
                 'description' => __( 'Success! One moment while we log you in...', 'ajax_login_register' ),
                 'cssClass' => 'noon',
                 'code' => 'success_registration'
-                )
+                ),
+             'email_confirmation' => array(
+                'description' => __( 'Your email confirmation is pending,please check your email...', 'ajax_login_register' ),
+                'cssClass' => 'error-container',
+                'code' => 'error'
+                ),
             );
 
         $status = apply_filters( 'ajax_login_register_status_codes', $status );

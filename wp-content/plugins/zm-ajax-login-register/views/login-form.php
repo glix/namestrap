@@ -24,16 +24,16 @@
                 <div class="ajax-login-register-status-container">
                     <div class="ajax-login-register-msg-target"></div>
                 </div>
-                <div class="noon"><label><?php _e('User Name','ajax_login_register'); ?></label><input type="text" name="user_login" size="30" required /></div>
+                <div class="noon"><label><?php _e('Username','ajax_login_register'); ?></label><input type="text" name="user_login" size="30" required /></div>
                 <div class="noon"><label><?php _e('Password','ajax_login_register'); ?></label><input type="password" name="password" size="30" required /></div>
-                <div class="noon"><a href="#" class="not-a-member-handle"><?php echo apply_filters( 'ajax_login_not_a_member_text', __('Are you a member?','ajax_login_register') ); ?></a></div>
+<!--                 <div class="noon"><a href="#" class="not-a-member-handle"><?php echo apply_filters( 'ajax_login_not_a_member_text', __('Are you a member?','ajax_login_register') ); ?></a></div> -->
                 <?php
                 $keep_logged_in = get_option('ajax_login_register_keep_me_logged_in');
                 if ( $keep_logged_in != "on") : ?>
                     <input type="checkbox" name="rememberme" />
                     <span class="meta"><?php _e('Keep me logged in','ajax_login_register'); ?> | </span>
                 <?php endif; ?>
-                <span class="meta"><a href="<?php echo wp_lostpassword_url(); ?>" title="<?php _e('Forgot Password','ajax_login_register' ); ?>"><?php _e('Forgot Password','ajax_login_register'); ?></a></span>
+                <span class="meta"><a href="<?php echo wp_lostpassword_url(); ?>" title="<?php _e('Forgot Password','ajax_login_register' ); ?>"><?php _e('Forgot Password?','ajax_login_register'); ?></a></span>
                 <div class="button-container">
                     <input class="login_button green" type="submit" value="<?php _e('Login','ajax_login_register'); ?>" accesskey="p" name="submit" />
                 </div>
